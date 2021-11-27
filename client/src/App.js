@@ -18,7 +18,7 @@ function App() {
     setCode(stubs[language]);
   }, [language]);
   useEffect(() => {
-    axios.get("http://localhost:5000/allJob").then((data) => {
+    axios.get("https://codeeditorbackend13.herokuapp.com/alljob").then((data) => {
       setPrevCodes(data.data.data);
     });
   }, []);
@@ -29,7 +29,7 @@ function App() {
       setJobId("");
       setOutput("");
       setJobDetails(null);
-      const { data } = await axios.post("http://localhost:5000/run", {
+      const { data } = await axios.post("https://codeeditorbackend13.herokuapp.com/run", {
         language: language,
         code,
         textInput,
@@ -39,7 +39,7 @@ function App() {
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "http://localhost:5000/status",
+          "https://codeeditorbackend13.herokuapp.com/status",
           { params: { id: data.jobId } }
         );
 

@@ -94,6 +94,7 @@ app.post("/run", async (req, res) => {
     });
   }
 });
-app.listen(5000, () => {
+const port=5000;
+app.listen(process.env.PORT || port, () => {
   console.log(`listening on 5000`);
 });
