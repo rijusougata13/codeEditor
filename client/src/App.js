@@ -8,7 +8,7 @@ import AceEditor from "react-ace";
 function App() {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
-  const [language, setLanguage] = useState("cpp");
+  const [language, setLanguage] = useState("py");
   const [jobId, setJobId] = useState("");
   const [status, setStatus] = useState("");
   const [jobDetails, setJobDetails] = useState(null);
@@ -18,7 +18,7 @@ function App() {
     setCode(stubs[language]);
   }, [language]);
   useEffect(() => {
-    axios.get("https://codeeditorbackend13.herokuapp.com/alljob").then((data) => {
+    axios.get("https://secret-chamber-70675.herokuapp.com/allJob").then((data) => {
       setPrevCodes(data.data.data);
     });
   }, []);
@@ -29,7 +29,7 @@ function App() {
       setJobId("");
       setOutput("");
       setJobDetails(null);
-      const { data } = await axios.post("https://codeeditorbackend13.herokuapp.com/run", {
+      const { data } = await axios.post("https://secret-chamber-70675.herokuapp.com/run", {
         language: language,
         code,
         textInput,
@@ -39,7 +39,7 @@ function App() {
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "https://codeeditorbackend13.herokuapp.com/status",
+          "https://secret-chamber-70675.herokuapp.com/status",
           { params: { id: data.jobId } }
         );
 
@@ -95,10 +95,11 @@ function App() {
       <h1 style={{ margin: "0  0rem 5rem 0rem ", textAlign: "center" }}>
         Code and Compile
       </h1>
+      <h5>C++ and other languages are under maintanance</h5>
       <div>
         <label>Language: </label>
         <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-          <option value="cpp">C++</option>
+          {/* <option value="cpp">C++</option> */}
           <option value="py">Python</option>
         </select>
       </div>
