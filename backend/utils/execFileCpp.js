@@ -18,7 +18,7 @@ const executeCpp = async (filePath) => {
     // console.log(new Date().getMinutes(), time);
     let flg = true;
 
-    let processObj = await exec(
+     await exec(
       `g++ ${filePath} -o ${outPath} && cd ${outputPath} && ./${jobId}.out < ${jobId}.txt`,
       (error, stdout, stderr) => {
         if (error) {

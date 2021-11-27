@@ -21,7 +21,7 @@ function App() {
     axios.get("http://localhost:5000/allJob").then((data) => {
       setPrevCodes(data.data.data);
     });
-  }, [prevcode]);
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -155,7 +155,7 @@ function App() {
         </div>
         <p>Prev Code:</p>
 
-        <div>
+        {/* <div>
           {prevcode.map((val, index) => {
             if (index <= 3)
               return (
@@ -167,7 +167,7 @@ function App() {
                 </p>
               );
           })}
-        </div>
+        </div> */}
       </div>
     </div>
   );

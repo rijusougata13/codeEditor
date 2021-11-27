@@ -3,6 +3,7 @@ const path = require("path");
 const fs = require("fs");
 
 const executePy = (filePath) => {
+  console.log("TESTING0");
   const jobId = path.basename(filePath).split(".")[0];
   return new Promise((resolve, reject) => {
     exec(
