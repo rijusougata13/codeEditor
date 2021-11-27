@@ -7,7 +7,7 @@ const Job = require("./models/Job");
 const { jobQueue, addJobToQueue } = require("./utils/jobQueue");
 
 mongoose.connect(
-  "mongodb+srv://rijusougata13:13072001@realmcluster.22swx.mongodb.net/compilerapp?retryWrites=true&w=majority",
+  "mongodb://localhost/compiler2",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
