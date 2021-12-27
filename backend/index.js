@@ -5,9 +5,13 @@ const path = require("path");
 const cors = require("cors");
 const Job = require("./models/Job");
 const { jobQueue, addJobToQueue } = require("./utils/jobQueue");
+const dotenv = require('dotenv');
+  
+dotenv.config();
+
 
 mongoose.connect(
-  "mongodb://localhost/compiler2",
+  process.env.MONGO_URL,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -20,7 +24,6 @@ mongoose.connect(
     console.log("successfuly connected");
   }
 );
-
 const app = express();
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
