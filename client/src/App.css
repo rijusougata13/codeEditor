@@ -6,7 +6,20 @@
   height: 100vh;
   margin: 0 !important;
   padding: 2rem;
-  background-color: orange;
+  background-color: darkcyan;
+
+  
+}
+
+.backgroundImg{
+  position: absolute;
+  bottom: 10%;
+  right: -5%;
+  width: 50%;
+  height: 50%;
+  /* z-index: -1; */
+  opacity: 0.5;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {

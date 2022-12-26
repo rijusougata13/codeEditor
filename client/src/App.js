@@ -2,8 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import stubs from "./defaultStubs";
+import BackgroundImg1 from './assets/backgroundImg1.svg';
+import 'ace-builds/src-noconflict/ace';
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/ext-language_tools";
 import moment from "moment";
 import AceEditor from "react-ace";
+
+const BackendURL = "http://localhost:5000"
 
 function App() {
   const [code, setCode] = useState("");
@@ -18,7 +25,7 @@ function App() {
     setCode(stubs[language]);
   }, [language]);
   useEffect(() => {
-    axios.get("https://secret-chamber-70675.herokuapp.com/allJob").then((data) => {
+    axios.get(`${BackendURL}/allJob`).then((data) => {
       setPrevCodes(data.data.data);
     });
   }, []);
@@ -29,7 +36,7 @@ function App() {
       setJobId("");
       setOutput("");
       setJobDetails(null);
-      const { data } = await axios.post("https://secret-chamber-70675.herokuapp.com/run", {
+      const { data } = await axios.post(`${BackendURL}/run`, {
         language: language,
         code,
         textInput,
@@ -39,7 +46,7 @@ function App() {
       let intervalId;
       intervalId = setInterval(async () => {
         const { data: dataRes } = await axios.get(
-          "https://secret-chamber-70675.herokuapp.com/status",
+          `${BackendURL}/status`,
           { params: { id: data.jobId } }
         );
 
@@ -92,10 +99,11 @@ function App() {
 
   return (
     <div class="App">
+      <img src={BackgroundImg1} alt="Code-Compile" class="backgroundImg" />
       <h1 style={{ margin: "0  0rem 5rem 0rem ", textAlign: "center" }}>
         Code and Compile
       </h1>
-      <h5>C++ and other languages are under maintanance</h5>
+      {/* <h5>C++ and other languages are under maintanance</h5> */}
       <div>
         <label>Language: </label>
         <select value={language} onChange={(e) => setLanguage(e.target.value)}>
@@ -118,7 +126,8 @@ function App() {
               width: "40vw",
             }}
             placeholder="Start Coding"
-            theme="solarized_dark"
+            mode="python"
+            theme="github"
             name="basic-code-editor"
             onChange={(currentCode) => setCode(currentCode)}
             fontSize={18}
@@ -135,11 +144,12 @@ function App() {
             }}
           />
           <br />
-          <button onClick={handleSubmit}>Submit</button>
+          <button onClick={handleSubmit} style={{padding:"10px"}}>Submit</button>
         </div>
         <div style={{ padding: "0rem 2rem" }}>
           <p>Input file</p>
           <textarea
+            style={{backgroundColor: "white", color: "black"}}
             value={textInput}
             rows={10}
             cols={40}
@@ -151,10 +161,13 @@ function App() {
             <p>Status:{status}</p>
             <p>{executionTime()}</p>
             <p>Output: </p>
-            <textarea value={output} rows={10} cols={40}></textarea>
+            <textarea 
+              style={{ backgroundColor: "white", color: "black" }}
+
+            value={output} rows={10} cols={40}></textarea>
           </p>
         </div>
-        <p>Prev Code:</p>
+        {/* <p>Prev Code:</p> */}
 
         {/* <div>
           {prevcode.map((val, index) => {
