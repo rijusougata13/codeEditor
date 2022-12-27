@@ -10,7 +10,7 @@ import "ace-builds/src-noconflict/ext-language_tools";
 import moment from "moment";
 import AceEditor from "react-ace";
 
-const BackendURL = "http://localhost:5000"
+const BackendURL = "https://codeeditorr.onrender.com"
 
 function App() {
   const [code, setCode] = useState("");
@@ -21,6 +21,27 @@ function App() {
   const [jobDetails, setJobDetails] = useState(null);
   const [prevcode, setPrevCodes] = useState([]);
   const [textInput, setTextInput] = useState("");
+  const [mobileView,setMobileView]=useState(false);
+
+  useEffect(()=>{
+    let details = navigator.userAgent;
+
+    /* Creating a regular expression 
+    containing some mobile devices keywords 
+    to search it in details string*/
+    let regexp = /android|iphone|kindle|ipad/i;
+
+    /* Using test() method to search regexp in details
+    it returns boolean value*/
+    let isMobileDevice = regexp.test(details);
+
+    if (isMobileDevice) {
+      setMobileView(true);
+    } else {
+      setMobileView(false)
+    }
+  },[])
+
   useEffect(() => {
     setCode(stubs[language]);
   }, [language]);
@@ -97,6 +118,7 @@ function App() {
     return result;
   };
 
+  if (mobileView) return <div style={{display:"flex",justifyContent:"center",alignItems:"center",height:"100vh"}}> <p>Please Use Desktop Mode to Access This Site</p></div>
   return (
     <div class="App">
       <img src={BackgroundImg1} alt="Code-Compile" class="backgroundImg" />
